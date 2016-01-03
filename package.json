@@ -2,5 +2,8 @@
   "name": "decimal-fracao-conversor",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js"
+  "main": "index.js",
+  "dependencies": {
+    "frac-por-extenso": "0.0.1"
+  }
 }

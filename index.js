@@ -1,6 +1,7 @@
 'use strict';
 
-var dfConverter = {};
+var fracPorExtenso = require('frac-por-extenso')
+  , dfConverter = {};
 
 dfConverter.checkIsPrimeNumber = function (number) {
   for (var i = 2; i < number; i++) {
@@ -25,13 +26,17 @@ dfConverter.getDenominator = function (decimals) {
 
 
 dfConverter.getNumerator = function (number) {
-  return parseInt(number.toString().split(".")[1], 10);
+  if (number.toString().split(".").length > 1) {
+    return parseInt(number.toString().split(".")[1], 10);
+  }
+
+  return 1;
 };
 
 
-dfConverter.getSmaller = function (number) {
-
-}
+dfConverter.getSmaller = function (denominator, numerator) {
+  return Math.min(denominator, numerator);
+};
 
 
 dfConverter.convert = function (number) {
@@ -39,11 +44,17 @@ dfConverter.convert = function (number) {
     throw new Error('The number must be an fraction');
   }
 
-  var denominator = this.getDenominator(this.countDecimals(number));
-  var numerator = this.getNumerator(number);
+  this.numerator = this.getNumerator(number);
+  this.denominator = this.getDenominator(this.countDecimals(number));
 
-  console.log(numerator);
-
+  return this;
 };
+
+
+dfConverter.written = function (f) {
+  var fraction = f || this;
+  return fracPorExtenso(fraction.numerator, fraction.denominator)
+};
+
 
 module.exports = dfConverter;
