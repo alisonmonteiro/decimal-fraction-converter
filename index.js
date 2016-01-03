@@ -1,14 +1,7 @@
 'use strict';
 
-var fracPorExtenso = require('frac-por-extenso')
+var writtenMode = require('frac-por-extenso')
   , dfConverter = {};
-
-dfConverter.checkIsPrimeNumber = function (number) {
-  for (var i = 2; i < number; i++) {
-    if (number % i === 0) return false;
-  }
-  return number > 1;
-};
 
 
 dfConverter.countDecimals = function (number) {
@@ -34,12 +27,7 @@ dfConverter.getNumerator = function (number) {
 };
 
 
-dfConverter.getSmaller = function (denominator, numerator) {
-  return Math.min(denominator, numerator);
-};
-
-
-dfConverter.convert = function (number) {
+dfConverter.convert = function (number, simplify) {
   if (number > 1) {
     throw new Error('The number must be an fraction');
   }
@@ -47,13 +35,65 @@ dfConverter.convert = function (number) {
   this.numerator = this.getNumerator(number);
   this.denominator = this.getDenominator(this.countDecimals(number));
 
+  if (simplify === true) {
+    return this.simplify();
+  }
+
   return this;
 };
 
 
 dfConverter.written = function (f) {
   var fraction = f || this;
-  return fracPorExtenso(fraction.numerator, fraction.denominator)
+  return writtenMode(fraction.numerator, fraction.denominator)
+};
+
+
+dfConverter.isPrimeNumber = function (number) {
+  for (var i = 2; i < number; i++) {
+    if (number % i === 0) return false;
+  }
+
+  return number > 1;
+};
+
+
+dfConverter.getSmaller = function (denominator, numerator) {
+  return Math.min(denominator, numerator);
+};
+
+
+dfConverter.simplify = function (f) {
+  var fraction = f || this
+    , smaller = this.getSmaller(fraction.numerator, fraction.denominator);
+
+  if ((this.isPrimeNumber(fraction.numerator) && this.isPrimeNumber(fraction.denominator))
+    || fraction.numerator === 1 || fraction.denominator === 1) {
+    return fraction;
+  }
+
+  for (smaller; smaller >= 0; smaller--) {
+    if (fraction.numerator % smaller === 0 && fraction.denominator % smaller === 0) {
+      console.log(smaller);
+      fraction.numerator = fraction.numerator / smaller;
+      fraction.denominator = fraction.denominator / smaller;
+
+      setTimeout(function () {
+        dfConverter.simplify({
+          numerator: fraction.numerator
+          , denominator: fraction.denominator
+        });
+      }, 1);
+
+    }
+
+    if (smaller == 0) {
+      return {
+        numerator: fraction.numerator
+        , denominator: fraction.denominator
+      };
+    }
+  }
 };
 
 
