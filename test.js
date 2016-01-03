@@ -9,6 +9,9 @@ test('simplifying a fraction', function (t) {
 
   t.is(fn.simplify(f).numerator, 1);
   t.is(fn.simplify(f).denominator, 2);
+
+  t.is(fn.convert(0.5, true).numerator, 1);
+  t.is(fn.convert(0.5, true).denominator, 2);
 });
 
 
