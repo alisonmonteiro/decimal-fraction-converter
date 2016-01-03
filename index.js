@@ -74,7 +74,6 @@ dfConverter.simplify = function (f) {
 
   for (smaller; smaller >= 0; smaller--) {
     if (fraction.numerator % smaller === 0 && fraction.denominator % smaller === 0) {
-      console.log(smaller);
       fraction.numerator = fraction.numerator / smaller;
       fraction.denominator = fraction.denominator / smaller;
 
@@ -88,10 +87,10 @@ dfConverter.simplify = function (f) {
     }
 
     if (smaller == 0) {
-      return {
-        numerator: fraction.numerator
-        , denominator: fraction.denominator
-      };
+      this.numerator = fraction.numerator;
+      this.denominator = fraction.denominator;
+
+      return this;
     }
   }
 };
