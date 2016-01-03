@@ -1,15 +1,31 @@
 {
-  "name": "decimal-fracao-conversor",
+  "name": "decimal-fraction-converter",
   "version": "0.0.1",
-  "description": "",
+  "description": "Conversor de decimal para fração em NodeJS",
   "main": "index.js",
   "dependencies": {
     "frac-por-extenso": "0.0.1"
   },
+  "devDependencies": {
+    "ava": "^0.9.1"
+  },
   "scripts": {
     "test": "ava"
   },
-  "devDependencies": {
-    "ava": "^0.9.1"
-  }
+  "keywords": [
+    "decimal",
+    "fraction",
+    "fracao",
+    "converter",
+    "nodejs",
+    "alisonmotnerio"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:alisonmonteiro/decimal-fraction-converter.git"
+  },
+  "author": "Alison Monteiro <alisonmonteiro.10@gmail.com>",
+  "license": "MIT",
+  "bugs": "https://github.com/alisonmonteiro/decimal-fraction-converter/issues",
+  "homepage": "https://github.com/alisonmonteiro/decimal-fraction-converter"
 }
